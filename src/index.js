@@ -17,7 +17,7 @@ function markUpList(countries) {
     .join('');
   countryList.insertAdjacentHTML('afterbegin', CountriesList);
 }
-function markUpCard({ name, capital, population, flags, languages }) {
+function markUpCard([{ name, capital, population, flags, languages }]) {
   const countryCard = `<img src="${
     flags.svg
   }" class="item_flag"><span class="item_name">${
@@ -49,19 +49,19 @@ function renderCountryData() {
   fetchCountries(searchQuery)
     .then(country => {
       clearmarkUp();
-      if (country.lenght > 10) {
+      if (country.length > 10) {
         notificationTooMany();
-      } else if (country.lenght >= 2 && country.lenght <= 10) {
+      } else if (country.length >= 2 && country.length <= 10) {
         markUpList(country);
         console.log(country);
-      } else if (country.lenght === 1) {
+      } else if (country.length === 1) {
         markUpCard(country);
         console.log(country);
       }
     })
     .catch(showError);
 }
-function showError() {
+function showError(error) {
   console.log(error.message);
   Notiflix.Notify.failure('Oops, there is no country with that name');
 }
